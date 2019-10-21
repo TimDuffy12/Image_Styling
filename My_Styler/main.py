@@ -32,7 +32,7 @@ def main():
         if i % 10 == 0:
             print("Iteration: %d" % (i))
 
-            path = "C:\\Users\\timjd\OneDrive - SNHU\Documents\Sophomore_Software_Engineering\Images\outputs\%d.png" % (i)
+            path = "C:\\Users\\timjd\OneDrive - SNHU\Documents\Sophomore_Software_Engineering\Images\outputs\\%d.png" % (i)
             pastiche.data.clamp_(0, 1)
             save_image(pastiche, path)
 
