@@ -2,7 +2,7 @@ import torchvision.transforms as transforms
 from torch.autograd import Variable
 
 from PIL import Image
-import scipy.misc
+import imageio
 
 imsize = 256
 
@@ -25,4 +25,4 @@ def save_image(input, path):
     image = input.data.clone().cpu()
     image = image.view(3, imsize, imsize)
     image = unloader(image)
-    scipy.misc.imsave(path, image)
+    imageio.imwrite(path, image)

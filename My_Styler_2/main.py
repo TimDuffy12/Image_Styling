@@ -23,13 +23,13 @@ def main():
     style_cnn = StyleCNN(style)
 
     # Contents
-    coco = datasets.ImageFolder(root='data/contents', transform=loader)
-    content_loader = torch.utils.data.DataLoader(coco, batch_size=N, shuffle=True, **kwargs)
+    coco = datasets.ImageFolder(root='C:\\Users\\timjd\Documents\GitHub\cocoapi', transform=loader)
+    content_loader = torch.utils.data.DataLoader(coco, batch_size=N, shuffle=True)
 
     for epoch in range(num_epochs):
         for i, content_batch in enumerate(content_loader):
           iteration = epoch * i + i
-          content_loss, style_loss, pastiches = style_cnn.train(content_batch, style_batch)
+          content_loss, style_loss, pastiches = style_cnn.train(content_batch, style)
 
           if i % 10 == 0:
               print("Iteration: %d" % (iteration))
