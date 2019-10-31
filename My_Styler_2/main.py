@@ -15,26 +15,35 @@ content = image_loader(
 
 
 
-
-num_epochs = 31
+num_epochs = 3
+N = 4
 
 
 def main():
-    pastiche = image_loader(
-        "C:\\Users\\timjd\OneDrive - SNHU\Documents\Sophomore_Software_Engineering\Images\\Selfie-2.jpg").type(dtype)
-    pastiche.data = torch.randn(pastiche.data.size()).type(dtype)
+    style_cnn = StyleCNN(style)
 
-    style_cnn = StyleCNN(style, content, pastiche)
+    # Contents
+    coco = datasets.ImageFolder(root='data/contents', transform=loader)
+    content_loader = torch.utils.data.DataLoader(coco, batch_size=N, shuffle=True, **kwargs)
 
-    for i in range(num_epochs):
-        pastiche = style_cnn.train()
+    for epoch in range(num_epochs):
+        for i, content_batch in enumerate(content_loader):
+          iteration = epoch * i + i
+          content_loss, style_loss, pastiches = style_cnn.train(content_batch, style_batch)
 
-        if i % 10 == 0:
-            print("Iteration: %d" % (i))
+          if i % 10 == 0:
+              print("Iteration: %d" % (iteration))
+              print("Content loss: %f" % (content_loss.data[0]))
+              print("Style loss: %f" % (style_loss.data[0]))
 
-            path = "C:\\Users\\timjd\OneDrive - SNHU\Documents\Sophomore_Software_Engineering\Images\outputs\\%d.png" % (i)
-            pastiche.data.clamp_(0, 1)
-            save_image(pastiche, path)
+          if i % 500 == 0:
+              path = "outputs/%d_" % (iteration)
+              paths = [path + str(n) + ".png" for n in range(N)]
+              save_images(pastiches, paths)
 
+              path = "outputs/content_%d_" % (iteration)
+              paths = [path + str(n) + ".png" for n in range(N)]
+              save_images(content_batch, paths)
+              style_cnn.save()
 
 main()

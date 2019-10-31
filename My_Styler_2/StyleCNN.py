@@ -5,11 +5,10 @@ from GramMatrix import *
 
 
 class StyleCNN(object):
-    def __init__(self, style, content, pastiche):
+    def __init__(self, style, pastiche):
         super(StyleCNN, self).__init__()
 
         self.style = style
-        self.content = content
         self.pastiche = nn.Parameter(pastiche.data)
 
         self.content_layers = ['conv_4']
@@ -66,7 +65,33 @@ class StyleCNN(object):
             total_loss = content_loss + style_loss
             total_loss.backward()
 
-            return total_loss
+            self.optimizer.step()
 
-        self.optimizer.step(closure)
-        return self.pastiche
+            return self.pastiche
+
+        self.transform_network = nn.Sequential(nn.ReflectionPad2d(40),
+                                               nn.Conv2d(3, 32, 9, stride=1, padding=4),
+                                               nn.Conv2d(32, 64, 3, stride=2, padding=1),
+                                               nn.Conv2d(64, 128, 3, stride=2, padding=1),
+                                               nn.Conv2d(128, 128, 3, stride=1, padding=0),
+                                               nn.Conv2d(128, 128, 3, stride=1, padding=0),
+                                               nn.Conv2d(128, 128, 3, stride=1, padding=0),
+                                               nn.Conv2d(128, 128, 3, stride=1, padding=0),
+                                               nn.Conv2d(128, 128, 3, stride=1, padding=0),
+                                               nn.Conv2d(128, 128, 3, stride=1, padding=0),
+                                               nn.Conv2d(128, 128, 3, stride=1, padding=0),
+                                               nn.Conv2d(128, 128, 3, stride=1, padding=0),
+                                               nn.Conv2d(128, 128, 3, stride=1, padding=0),
+                                               nn.Conv2d(128, 128, 3, stride=1, padding=0),
+                                               nn.ConvTranspose2d(128, 64, 3, stride=2, padding=1, output_padding=1),
+                                               nn.ConvTranspose2d(64, 32, 3, stride=2, padding=1, output_padding=1),
+                                               nn.Conv2d(32, 3, 9, stride=1, padding=4),
+                                               )
+        self.gram = GramMatrix()
+        self.loss = nn.MSELoss()
+        self.optimizer = optim.Adam(self.transform_network.parameters(), lr=1e-3)
+
+        self.use_cuda = torch.cuda.is_available()
+        if self.use_cuda:
+            self.loss_network.cuda()
+            self.gram.cuda()
