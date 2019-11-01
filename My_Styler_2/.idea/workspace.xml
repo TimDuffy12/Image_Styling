@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="923fdbe4-5c55-4f44-92ad-681441091c14" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../My_Styler/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../My_Styler/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../My_Styler/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/../My_Styler/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StyleCNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/StyleCNN.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="923fdbe4-5c55-4f44-92ad-681441091c14" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +68,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="1588" />
     <option name="width" value="1622" />
     <option name="height" value="1730" />
@@ -146,15 +141,15 @@
       <option name="presentableId" value="Default" />
       <updated>1572541304646</updated>
       <workItem from="1572541306402" duration="271000" />
-      <workItem from="1572541582427" duration="7297000" />
+      <workItem from="1572541582427" duration="7550000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7568000" />
+    <option name="totallyTimeSpent" value="7821000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="794" y="0" width="811" height="865" extended-state="0" />
+    <frame x="794" y="0" width="811" height="865" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.3125828" />
