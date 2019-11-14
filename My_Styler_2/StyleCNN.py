@@ -47,7 +47,7 @@ class StyleCNN(object):
     def train(self, content, style):
         self.optimizer.zero_grad()
 
-        content = content.clone()
+        content = content.copy()
         style = self.style.clone()
         pastiche = self.transform_network.forward(content)
 

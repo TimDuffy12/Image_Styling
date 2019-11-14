@@ -3,6 +3,7 @@ import torchvision.datasets as datasets
 
 from StyleCNN import *
 from utils import *
+from numpy import *
 
 # CUDA Configurations
 dtype = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
@@ -28,6 +29,7 @@ def main():
 
     for epoch in range(num_epochs):
         for i, content_batch in enumerate(content_loader):
+          print(content_batch.copy())
           iteration = epoch * i + i
           content_loss, style_loss, pastiches = style_cnn.train(content_batch, style)
 
