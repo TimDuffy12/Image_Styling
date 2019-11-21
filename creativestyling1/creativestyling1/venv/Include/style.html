@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+    <title>Creative Imaging</title>
+    <!--<link rel="stylesheet" href="main.css">-->
+</head>
+<style>
+    body{ max-width:1600px; margin:auto; }
+    #fullheading{
+        position:fixed;
+        width:100%;
+
+    }
+    #header{
+        background-image: linear-gradient(to bottom, violet, lightskyblue);
+        padding: 10px;
+        text-align:center;
+        width:100%;
+    }
+    a{
+        text-decoration: none;
+    }
+    #push {height:140px;}
+    #menu{
+        background-image: url("images/background.jpg");
+        background-size: cover;
+        padding: 15px;
+        text-align:center;
+    }
+    .menuopts{
+        padding:10px;
+        margin:0px;
+        background-color: lightskyblue;
+        background-image: linear-gradient(to bottom, white, lightskyblue);
+        border-radius: 4px;
+
+    }
+    .menuopts:active{
+        background-color: darkblue;
+        border: black 5px;
+
+    }
+    .menuopts:hover{
+        background-image: linear-gradient(to top, white, lightskyblue)
+    }
+
+    #main{
+        background-image: radial-gradient(whitesmoke, lightskyblue);
+        text-align:center;
+    }
+    h2{
+        background-image: linear-gradient(to bottom, violet, lightskyblue);
+        width:80%;
+        padding:10px;
+        margin-left:10%;
+        border-radius: 4px;
+
+    }
+    #newimagesection{
+        height:300px;
+        width:80%;
+        padding-left:10%; padding-right:10%;
+    }
+
+    #chooseimagessection{
+
+        width: 80%;
+        text-align:center;
+        padding-left: 10%; padding-right: 10%;
+        margin-top:8px;
+
+    }
+    #choosemyimagesection{
+        /*background-color: lightskyblue;*/
+        /*height: 300px;*/
+
+    }
+    #myimage{
+        text-align: center;
+    }
+    #choosestylesection{
+        /*background-color: violet;*/
+        /*height: 250px;*/
+        padding: 0px;
+    }
+    img{
+        width:300px;
+    }
+
+
+    #btsubmit {
+        display: inline-block;
+        border-radius: 4px;
+        background-color: violet;
+        border: none;
+        color: black;
+        text-align: center;
+        font-size: 16px;
+        padding: 20px;
+        width: 200px;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: 5px;
+        margin-top:30px;
+    }
+
+    #btsubmit span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+    }
+
+    #btsubmit span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+    }
+
+    #btsubmit:hover span {
+        padding-right: 25px;
+    }
+
+    #btsubmit:hover span:after {
+        opacity: 1;
+        right: 0;
+    }
+
+
+    #footer{
+        background-color: black;
+        height:50px;
+        color:white;
+        text-align: center;
+        position: -ms-device-fixed;
+        bottom: 0;
+        width:100%;
+        opacity: 50%;
+
+    }
+
+
+</style>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#myimage')
+                    .attr('src', e.target.result)
+
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function switchPic(pic){
+        pic.src = "img.png"
+    }
+
+    function getStyle()
+    {
+        try{
+            //var d = document.getElementByID("ddstyles").value;
+            //const s = d.options[d.selectedIndex].text;
+            //document.getElementById("testStyle").innerHTML = "New Text";
+
+            //get style image value
+            var value = document.getElementById('ddstyles').value;
+            document.getElementById("testStyle").innerHTML = value;
+            updateImage(value);
+
+        } catch(err){
+            window.alert("can't get style id")
+        }
+    }
+    function updateImage(val){
+        try{
+            //update image shown id='styleimage'
+            var imagesrc = "";
+
+            if(val == "vg-sn"){imagesrc = "images/vangoghstarry.jpg";}
+            if(val == "p-ww"){imagesrc = "images/picassoweeping.jpg";}
+            if(val == 'dv-ml'){imagesrc = "images/monalisa.jpg";}
+            if(val == 'm-w'){imagesrc = "images/monetwisteria.jpg";}
+
+            document.getElementById("styleimage").src = imagesrc;
+        } catch(err) {
+            window.alert("can't update style image")
+        }
+
+    }
+
+
+    function hideFinal() {
+
+        document.getElementById("newimagesection").style.display = "none";
+        //object.style.visibility = "visible|hidden|collapse|initial|inherit"
+        //object.style.display =
+    }
+    function showFinal() {
+        document.getElementById("newimagesection").style.display = "block";
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+
+    function pytfStyleTransfer() {
+        try {
+        var contentpath = document.getElementById("myimage").src;
+        var stylepath = document.getElementById("myimage").src;
+        } catch(err) {window.alert("can't get content and style path");}
+
+        //
+        //
+        //
+        //
+        //
+        //          tensorflow python code here
+        //
+        //
+        //
+        //
+        //
+
+        //get new image path
+        var newimgpath = "images/newyorkpicasso.jpg";
+
+
+        try{
+            document.getElementById("newimage").src = newimgpath; //update new image
+        } catch(err) {window.alert("can't update new image");}
+
+        showFinal(); //display completed image
+    }
+
+</script>
+<body onload="hideFinal()">
+    <div id="fullheading">
+        <div id="header">
+                <h1 class="header" id="title">Creative Imaging</h1>
+        </div>
+
+
+
+        <div id="menu">
+            <a href="main.html" class="menuopts" id="home">Home</a></span>
+            <a href="style.html" class="menuopts" id="style">Image</a></span>
+            <a href="gallery.html" class="menuopts" id="gallery">Gallery</a></span>
+        </div>
+    </div>
+
+    <div id="push"></div>
+
+
+    <div id="main">
+
+        <div id="newimagesection">
+            <br>
+            <h2>STYLED IMAGE</h2>
+            <img id="newimage" src="images/eiffelvangogh.jpg">
+        </div>
+
+
+        <!--<form action="/action_page.php">-->
+
+            <div id="chooseimagessection">
+                <br>
+                <div id="choosemyimagesection">
+                    <h2>UPLOAD AN IMAGE</h2>
+                    <input type="file" name="pic" accept="image/*" onchange="readURL(this);">
+                    <br><br>
+                    <img id="myimage" src="images/image-placeholder.jpg" alt="your image" width="100px"/>
+                </div>
+
+                <br><br>
+
+                <div id="choosestylesection">
+                    <h2>CHOOSE A STYLE</h2>
+
+                    <select id="ddstyles" name="value" onchange="getStyle()">
+                        <option value="vg-sn" selected="selected">Van Gogh's Starry Night</option> /*default value*/
+                        <option value="p-ww">Picasso's Weeping Woman</option>
+                        <option value="dv-ml">da Vinci's Mona Lisa</option>
+                        <option value="m-w">Monet's Wisteria</option>
+                    </select>
+                    <br>
+                    <p id="testStyle">Testing</p>
+                    <img id="styleimage" src="images/vangoghstarry.jpg" alt="style image"/>
+
+                </div>
+                <br>
+
+            </div>
+
+        <button id="btsubmit" onclick="pytfStyleTransfer()"><span>Style Your Image</span></button>
+            <!--this button will call python tensorflow code-->
+            <br><br><br><br><br>
+        <!--</form>-->
+
+
+    </div>
+
+    <div id="footer">
+
+    </div>
+
+</body>
+</html>
