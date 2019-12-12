@@ -87,19 +87,36 @@ li a:active {
 }
 .About img{
     height: 300px;
-    width: 200px;
+    width: 300px;
 }
 .Tim-list{
     display: inline-block;
     padding-right: 15px;
+    font-size: 18px;
 }
+
+.Tim-list img{
+    transform: rotate(90deg);
+    border-image-width: 2px;
+    border-color: black;
+}
+.Luke-list img{
+    transform: rotate(270deg);
+    border-style: solid;
+    border-image-width: 2px;
+    border-color: black;
+}
+
 .Luke-list{
     display: inline-block;
     padding-right: 15px;
+    font-size: 18px;
 }
+
 .Marissa-list{
     display: inline-block;
     padding-right: 15px;
+    font-size: 18px;
 }
 
 #footpush{

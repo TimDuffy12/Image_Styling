@@ -8,6 +8,7 @@
 {% block scripts %}
     <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
     <script>
         function readURL(input) {
@@ -72,31 +73,19 @@
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         }
         function pytfStyleTransfer() {
-            try {
-            var contentpath = document.getElementById("myimage").src;
-            var stylepath = document.getElementById("myimage").src;
-            } catch(err) {window.alert("can't get content and style path");}
-
-            //
-            //
-            //
-            //
-            //
-            //          tensorflow python code here
-            //
-            //
-            //
-            //
-            //
-
-            //get new image path
-            var newimgpath = "images/newyorkpicasso.jpg";
-            try{
-                document.getElementById("newimage").src = newimgpath; //update new image
-            } catch(err) {window.alert("can't update new image");}
-
-            showFinal(); //display completed image
+            $.ajax({
+                type: "POST",
+                url: "/create/",
+                dataType: "json",
+                data: JSON.stringify
+                }).done(function(data) {
+                    try{
+                        document.getElementById("newimage").src = '{{ url_for('static', filename='images/newImage.jpg') }}';
+                    } catch(err) {window.alert("can't update new image");}
+                    showFinal(); //display completed image
+                });
         }
+
     </script>
 {% endblock %}
 
@@ -124,10 +113,10 @@
 
         <div id="main">
 
-            <div id="newimagesection">
+            <div id="imageSection">
                 <br>
                 <h2>STYLED IMAGE</h2>
-                <img id="newimage" src="{{ url_for('static', filename='images/vangogh.jpg') }}">
+                <div id="status"><img id="newimage"></div>
             </div>
 
                 <div id="chooseimagessection">
@@ -158,8 +147,8 @@
                     <br>
 
                 </div>
-
             <button id="btsubmit" onclick="pytfStyleTransfer()"><span>Style Your Image</span></button>
+            </form>
                 <br><br><br><br><br>
         </div>
 
