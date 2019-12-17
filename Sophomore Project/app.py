@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, jsonify
+from flask import Flask, render_template, url_for, request, jsonify, redirect
 from flask_bootstrap import Bootstrap
 import PIL
 import PIL.Image
@@ -8,9 +8,11 @@ import numpy as np
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
+UPLOAD_FOLDER = r'C:\Users\timjd\Documents\GitHub\Image_Styling\Sophomore Project\static\content'
 
 app = Flask(__name__)
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.config['MAX_CONTENT_LENGTH'] = 16*1024*1024
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 Bootstrap(app)
 
 
@@ -22,7 +24,7 @@ def index():
 # this function loads the image into the proper dimensions, and converts to float type to be worked with
 def load_img(image):
     max_dim = 512
-    img = tf.io.read_file(image)
+    img = tf.io.read_file(r'C:/Users/timjd/Documents/GitHub/Image_Styling/Sophomore Project'+image)
     img = tf.image.decode_jpeg(img, channels=3)
     img = tf.image.convert_image_dtype(img, tf.float32)
 
@@ -50,12 +52,13 @@ def tensorImg(tensor):
 def style(image1, image2):
     content_image = load_img(image1)
     style_image = load_img(image2)
-    hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2')
+    hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/1')
     stylized_image = hub_module(tf.constant(content_image), tf.constant(style_image))[0]
     image = tensorImg(stylized_image)
-    image.save('C:\\Sophomore Project\\static\\images\\newImage.jpg', "JPG")
-    newPath = 'C:\\Sophomore Project\\static\\images\\newImage.jpg'
+    image.save(r'C:\Users\timjd\Documents\GitHub\Image_Styling\Sophomore Project\static\images\newImage5.jpg')
+    newPath = r'C:\Users\timjd\Documents\GitHub\Image_Styling\Sophomore Project\static\images\newImage5.jpg'
     return newPath
+
 
 
 @app.route('/create/', methods=['GET', 'POST'])

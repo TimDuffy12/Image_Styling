@@ -6,6 +6,9 @@
 {% endblock %}
 
 {% block scripts %}
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
+    <script type=text/javascript> $(function() { $("#mybutton").click(function (event) { $.getJSON('/uploadContent/', { },
+    function(data) { }); return false; }); }); </script>
     <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -16,8 +19,16 @@
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $('#myimage')
+
+
+                if (document.getElementById('radiobt').checked) {
+                     $('#myimage')
                     .attr('src', e.target.result)
+                }
+                else if (document.getElementById('r2').checked) {
+                     $('#myimage2')
+                    .attr('src', e.target.result)
+                }
 
             };
 
@@ -50,12 +61,12 @@
                 //update image shown id='styleimage'
                 var imagesrc = "";
 
-                if(val == "vg-sn"){imagesrc = "{{ url_for('static', filename='images/vangogh.jpg') }}";}
+                if(val == "vg-sn"){imagesrc = "{{ url_for('static', filename='images/Starry-Night.jpg') }}";}
                 if(val == "p-ww"){imagesrc = "{{ url_for('static', filename='images/picasso.jpg') }}";}
                 if(val == 'dv-ml'){imagesrc = "{{ url_for('static', filename='images/monalisa.jpg') }}";}
                 if(val == 'm-w'){imagesrc = "{{ url_for('static', filename='images/monetwisteria.jpg') }}";}
 
-                document.getElementById("styleimage").src = imagesrc;
+
             } catch(err) {
                 window.alert("can't update style image")
             }
@@ -80,11 +91,27 @@
                 data: JSON.stringify
                 }).done(function(data) {
                     try{
-                        document.getElementById("newimage").src = '{{ url_for('static', filename='images/newImage.jpg') }}';
+                        document.getElementById("newimage").src = '{{ url_for('static', filename='images/newImage5.jpg') }}';
                     } catch(err) {window.alert("can't update new image");}
                     showFinal(); //display completed image
                 });
+
+
         }
+        function switchRadio(myRadio){
+            //alert('Value: ' + myRadio.value);
+            if (document.getElementById('radiobt').checked){
+                document.getElementById("customsec").style.display = "none";
+                document.getElementById("presetsec").style.display = "block";
+            }
+            else {
+                document.getElementById("presetsec").style.display = "none";
+                document.getElementById("customsec").style.display = "block";
+            }
+        }
+        $(document).ready(
+            switchRadio()
+        )
 
     </script>
 {% endblock %}
@@ -111,9 +138,10 @@
             </div>
         </div>
 
-        <div id="main">
 
-            <div id="imageSection">
+        <div id="main" onload="switchRadio()">
+
+            <div id="newimagesection">
                 <br>
                 <h2>STYLED IMAGE</h2>
                 <div id="status"><img id="newimage"></div>
@@ -123,14 +151,14 @@
                     <br>
                     <div id="choosemyimagesection">
                         <h2>UPLOAD AN IMAGE</h2>
-                        <input type="file" name="pic" accept="image/*" onchange="readURL(this);">
+                            <span class="bt"><input type="file" name="pic" accept="image/*" onchange="readURL(this);"></span>
                         <br><br>
-                        <img id="myimage" src="{{ url_for('static', filename='images/image-placeholder.jpg') }}" alt="your image" width="100px"/>
+                        <img id="myimage" src="{{ url_for('static', filename='images/city.jpg') }}" alt="your image" width="100px"/>
                     </div>
 
                     <br><br>
 
-                    <div id="choosestylesection">
+{#                    <div id="choosestylesection">
                         <h2>CHOOSE A STYLE</h2>
 
                         <select id="ddstyles" name="value" onchange="getStyle()">
@@ -143,12 +171,43 @@
                         <!--<p id="testStyle">Testing</p>-->
                         <img id="styleimage" src="{{ url_for('static', filename='images/Starry-Night.jpg') }}" alt="style image"/>
 
+                    </div>#}
+
+
+                    <div id="choosestylesection">
+
+                    <h2>CHOOSE A STYLE</h2>
+
+
+                        <input type="radio" id="radiobt" name="rstyle" value="preset" onclick="switchRadio(this);" checked>Preset Styles
+                        <input type="radio" id="r2" name="rstyle" value="custom" onclick="switchRadio(this);">Custom Style
+
+                        <div id="presetsec">
+                            <select id="ddstyles" name="value" onchange="getStyle()">
+                                <option value="vg-sn" >Van Gogh's Starry Night</option> <!--default value-->
+                                <option value="p-ww">Picasso's Weeping Woman</option>
+                                <option value="dv-ml">da Vinci's Mona Lisa</option>
+                                <option value="m-w" selected="selected">Monet's Wisteria</option>
+                            </select>
+                            <br><br>
+                            <img class="styleimage" id="myimage1" src="{{ url_for('static', filename='images/monetwisteria.jpg') }}" alt="style image"/>
+                        </div>
+
+                        <div id="customsec">
+                            <div class="choosemyimagesection" id="choosemyimagesection2">
+
+                                <span class="bt"><input type="file" name="pic" accept="image/*" onchange="readURL(this);"></span>
+                                <br><br>
+                                <img class= "styleimage" class="myimage" id="myimage2" src="{{ url_for('static', filename='images/city.jpg') }}" alt="your image" width="100px"/>
+                            </div>
+                        </div>
                     </div>
+
                     <br>
 
                 </div>
             <button id="btsubmit" onclick="pytfStyleTransfer()"><span>Style Your Image</span></button>
-            </form>
+
                 <br><br><br><br><br>
         </div>
 

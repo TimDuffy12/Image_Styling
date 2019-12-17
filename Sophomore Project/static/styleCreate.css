@@ -4,6 +4,7 @@
 }
 body{
     background-color: white;
+    text-align:center;
 }
 
 .header {
@@ -64,18 +65,19 @@ li a:active {
 #main{
     background-image: radial-gradient(whitesmoke, lightskyblue);
     text-align:center;
-    align-content: center;
 }
 
 h2{
     background-image: linear-gradient(to bottom right, violet, lightskyblue);
-    padding-bottom:10px;
+    padding-top:5px;
     border-radius: 4px;
     margin-left: 10%; margin-right: 10%;
 }
 
 #newimagesection{
     padding-left:10%; padding-right:10%;
+    height:300px;
+    width:80%;
 }
 
 #chooseimagessection{
@@ -91,6 +93,7 @@ h2{
 
 #choosestylesection{
     padding: 0px;
+    align-content:center;
 }
 
 img{
@@ -148,3 +151,21 @@ img{
     width:100%;
     opacity: 50%;
 }
+#newimagesection{
+    height:300px;
+    width:80%;
+    padding-left:10%; padding-right:10%;
+}
+
+#chooseimagessection{
+    width: 80%;
+    text-align:center;
+    padding-left: 10%; padding-right: 10%;
+    margin-top:8px;
+}
+.bt{
+
+    display:block;
+    margin-left:50%;
+}
+
